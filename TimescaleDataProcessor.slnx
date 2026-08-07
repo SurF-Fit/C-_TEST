@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/back/">
+    <Project Path="back/TimescaleDataProcessor.API/TimescaleDataProcessor.API.csproj" />
+    <Project Path="back/TimescaleDataProcessor.Core/TimescaleDataProcessor.Core.csproj" />
+    <Project Path="back/TimescaleDataProcessor.Infrastructure/TimescaleDataProcessor.Infrastructure.csproj" />
+    <Project Path="back/TimescaleDataProcessor.Tests/TimescaleDataProcessor.Tests.csproj" />
+  </Folder>
+</Solution>

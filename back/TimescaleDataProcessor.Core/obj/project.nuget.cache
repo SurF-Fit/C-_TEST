@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "aV/jBIQQf4w=",
+  "success": true,
+  "projectFilePath": "D:\\Работы и конспекты\\C#_TEST\\back\\TimescaleDataProcessor.Core\\TimescaleDataProcessor.Core.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Кульменев Кирилл\\.nuget\\packages\\csvhelper\\33.1.0\\csvhelper.33.1.0.nupkg.sha512"
+  ],
+  "logs": []
+}
