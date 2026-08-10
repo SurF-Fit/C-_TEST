@@ -6,7 +6,7 @@ public class ResultRecord
 
     public string FileName {get; set;}
 
-    public double DataTimeSecond {get; set;}
+    public double DeltaTimeSeconds {get; set;}
 
     public DateTime MinDate {get; set;}
 

@@ -8,7 +8,7 @@ public static class CsvValidator
     private const int MaxRecords = 10000;
     private const int MinRecords = 1;
 
-    public static List<string> ValidateRecords(List<CsvRecordsDto> records)
+    public static List<string> ValidateRecords(List<CsvRecordDto> records)
     {
         var errors = new List<string>();
 

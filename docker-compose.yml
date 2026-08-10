@@ -1,0 +1,45 @@
+services:
+  postgres:
+    image: timescale/timescaledb:2.11.0-pg15
+    container_name: timescale-postgres
+    environment:
+      POSTGRES_DB: timescaledb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./back
+      dockerfile: Dockerfile
+    container_name: timescale-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=postgres;Database=timescaledb;Username=postgres;Password=postgres
+    ports:
+      - "5000:80"
+      - "5001:443"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - app-network
+    volumes:
+      - ./back:/app
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

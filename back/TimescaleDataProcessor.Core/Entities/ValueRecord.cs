@@ -1,4 +1,4 @@
-namespace TimescaleDataProcessor.Core.Entites;
+namespace TimescaleDataProcessor.Core.Entities;
 
 public class ValueRecord
 {

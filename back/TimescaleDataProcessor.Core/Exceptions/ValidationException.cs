@@ -1,8 +1,8 @@
-namespace TimescaleDataProcessor.Core.Exception
+namespace TimescaleDataProcessor.Core.Exceptions
 {
-    public class ValidationEception : Exception
+    public class CsvValidationException : Exception
     {
-        public ValidationEception (string message) : base(message)
+        public CsvValidationException (string message) : base(message)
         {
             
         }

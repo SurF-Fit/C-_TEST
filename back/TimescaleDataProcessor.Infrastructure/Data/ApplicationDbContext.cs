@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using TimascaleDataProcessor.Core.Entities;
+using TimescaleDataProcessor.Core.Entities;
 
 namespace TimescaleDataProcessor.Infrastructure.Data;
 
@@ -12,7 +12,7 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<ValueRecord> ValueRecords {get; set;}
 
-    public DbSet<ResultRecord> ResultRecord {get; set;}
+    public DbSet<ResultRecord> ResultRecords {get; set;}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

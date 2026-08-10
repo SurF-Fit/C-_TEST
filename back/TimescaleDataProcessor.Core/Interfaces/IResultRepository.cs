@@ -5,7 +5,7 @@ namespace TimescaleDataProcessor.Core.Interfaces;
 public interface IResultRepository
 {
     Task AddOrUpdateAsync(ResultRecord record);
-    Task<IEnumerable<ResultRecord>> GetFilterAsync(
+    Task<IEnumerable<ResultRecord>> GetFilteredAsync(
         string? fileName,
         DateTime? minDate,
         DateTime? maxDate,

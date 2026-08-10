@@ -1,8 +1,22 @@
 {
   "version": 2,
-  "dgSpecHash": "xevcLYtwXdI=",
+  "dgSpecHash": "GQ7PNqjXe8w=",
   "success": true,
-  "projectFilePath": "D:\\Работы и конспекты\\C#_TEST\\back\\TimescaleDataProcessor.Api\\TimescaleDataProcessor.Api.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "D:\\Работы и конспекты\\C#_TEST\\back\\TimescaleDataProcessor.API\\TimescaleDataProcessor.Api.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Кульменев Кирилл\\.nuget\\packages\\csvhelper\\33.1.0\\csvhelper.33.1.0.nupkg.sha512",
+    "C:\\Users\\Кульменев Кирилл\\.nuget\\packages\\microsoft.entityframeworkcore\\10.0.10\\microsoft.entityframeworkcore.10.0.10.nupkg.sha512",
+    "C:\\Users\\Кульменев Кирилл\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\10.0.10\\microsoft.entityframeworkcore.abstractions.10.0.10.nupkg.sha512",
+    "C:\\Users\\Кульменев Кирилл\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\10.0.10\\microsoft.entityframeworkcore.analyzers.10.0.10.nupkg.sha512",
+    "C:\\Users\\Кульменев Кирилл\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\10.0.4\\microsoft.entityframeworkcore.relational.10.0.4.nupkg.sha512",
+    "C:\\Users\\Кульменев Кирилл\\.nuget\\packages\\microsoft.extensions.apidescription.server\\10.0.0\\microsoft.extensions.apidescription.server.10.0.0.nupkg.sha512",
+    "C:\\Users\\Кульменев Кирилл\\.nuget\\packages\\microsoft.openapi\\2.7.5\\microsoft.openapi.2.7.5.nupkg.sha512",
+    "C:\\Users\\Кульменев Кирилл\\.nuget\\packages\\npgsql\\10.0.3\\npgsql.10.0.3.nupkg.sha512",
+    "C:\\Users\\Кульменев Кирилл\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\10.0.3\\npgsql.entityframeworkcore.postgresql.10.0.3.nupkg.sha512",
+    "C:\\Users\\Кульменев Кирилл\\.nuget\\packages\\swashbuckle.aspnetcore\\10.2.3\\swashbuckle.aspnetcore.10.2.3.nupkg.sha512",
+    "C:\\Users\\Кульменев Кирилл\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\10.2.3\\swashbuckle.aspnetcore.swagger.10.2.3.nupkg.sha512",
+    "C:\\Users\\Кульменев Кирилл\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\10.2.3\\swashbuckle.aspnetcore.swaggergen.10.2.3.nupkg.sha512",
+    "C:\\Users\\Кульменев Кирилл\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\10.2.3\\swashbuckle.aspnetcore.swaggerui.10.2.3.nupkg.sha512"
+  ],
   "logs": []
 }

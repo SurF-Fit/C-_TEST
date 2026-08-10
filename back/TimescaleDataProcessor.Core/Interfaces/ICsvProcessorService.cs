@@ -1,4 +1,4 @@
-using TimescaleDataProcessor.Core.Emtites;
+using TimescaleDataProcessor.Core.Entities;
 
 namespace TimescaleDataProcessor.Core.Interfaces;
 
