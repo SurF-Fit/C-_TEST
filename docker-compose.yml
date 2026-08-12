@@ -25,15 +25,15 @@ services:
     container_name: timescale-api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=postgres;Database=timescaledb;Username=postgres;Password=postgres
+      - ConnectionStrings__DefaultConnection=Host=localhost;Database=timescaledb;Username=postgres;Password=postgres
     ports:
       - "5000:80"
-      - "5001:443"
     depends_on:
       postgres:
         condition: service_healthy
     networks:
       - app-network
+    restart: on-failure
     volumes:
       - ./back:/app
 

@@ -1,26 +1,23 @@
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-WORKDIR /app
-EXPOSE 80
-EXPOSE 443
+﻿FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /source
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src
-
-COPY TimescaleDataProcessor.API/*.csproj TimescaleDataProcessor.API/
-COPY TimescaleDataProcessor.Core/*.csproj TimescaleDataProcessor.Core/
-COPY TimescaleDataProcessor.Infrastructure/*.csproj TimescaleDataProcessor.Infrastructure/
-
-RUN dotnet restore TimescaleDataProcessor.API/TimescaleDataProcessor.API.csproj
-
+# РљРѕРїРёСЂСѓРµРј РІСЃРµ С„Р°Р№Р»С‹ РїСЂРѕРµРєС‚Р°
 COPY . .
 
-WORKDIR /src/TimescaleDataProcessor.API
-RUN dotnet build TimescaleDataProcessor.API.csproj -c Release -o /app/build
+# Р’РѕСЃСЃС‚Р°РЅР°РІР»РёРІР°РµРј Р·Р°РІРёСЃРёРјРѕСЃС‚Рё
+RUN dotnet restore "TimescaleDataProcessor.API/TimescaleDataProcessor.API.csproj"
 
-FROM build AS publish
-RUN dotnet publish TimescaleDataProcessor.API.csproj -c Release -o /app/publish
+# РџСѓР±Р»РёРєСѓРµРј РїСЂРёР»РѕР¶РµРЅРёРµ
+RUN dotnet publish "TimescaleDataProcessor.API/TimescaleDataProcessor.API.csproj" -c Release -o /out
 
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
-COPY --from=publish /app/publish .
+
+# РљРѕРїРёСЂСѓРµРј РѕРїСѓР±Р»РёРєРѕРІР°РЅРЅРѕРµ РїСЂРёР»РѕР¶РµРЅРёРµ
+COPY --from=build /out .
+
+# РџСЂРѕРІРµСЂСЏРµРј СЃРѕРґРµСЂР¶РёРјРѕРµ
+RUN ls -la /app
+
+# РўРѕС‡РєР° РІС…РѕРґР°
 ENTRYPOINT ["dotnet", "TimescaleDataProcessor.API.dll"]
