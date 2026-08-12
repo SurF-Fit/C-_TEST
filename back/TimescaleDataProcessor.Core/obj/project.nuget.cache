@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "QsS4KjaMh9g=",
+  "success": true,
+  "projectFilePath": "D:\\Работы и конспекты\\C#_TEST\\back\\TimescaleDataProcessor.Core\\TimescaleDataProcessor.Core.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Кульменев Кирилл\\.nuget\\packages\\csvhelper\\30.0.1\\csvhelper.30.0.1.nupkg.sha512",
+    "C:\\Users\\Кульменев Кирилл\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.26\\microsoft.netcore.app.ref.8.0.26.nupkg.sha512",
+    "C:\\Users\\Кульменев Кирилл\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.26\\microsoft.windowsdesktop.app.ref.8.0.26.nupkg.sha512",
+    "C:\\Users\\Кульменев Кирилл\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.26\\microsoft.aspnetcore.app.ref.8.0.26.nupkg.sha512"
+  ],
+  "logs": []
+}
