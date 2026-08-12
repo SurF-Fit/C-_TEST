@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TimescaleDataProcessor.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+19ff9c51eb832c7e723f6e85b8d5ac6be6f3ddd6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+64d1cc33b3d6050e813bda40acdad764551a36ae")]
 [assembly: System.Reflection.AssemblyProductAttribute("TimescaleDataProcessor.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TimescaleDataProcessor.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

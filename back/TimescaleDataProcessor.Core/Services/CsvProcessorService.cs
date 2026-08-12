@@ -1,4 +1,5 @@
 using CsvHelper;
+using CsvHelper.Configuration;
 using System.Globalization;
 using TimescaleDataProcessor.Core.DTOs;
 using TimescaleDataProcessor.Core.Entities;
@@ -37,10 +38,10 @@ public class CsvProcessorService : ICsvProcessorService
         {
             await _valueRepository.DeleteByFileNameAsync(fileName);
 
-            var valueRecords = records.Select((dto, index) => new ValueRecord
+            var valueRecords = records.Select(dto => new ValueRecord
             {
                 Id = Guid.NewGuid(),
-                Date = dto.Date,
+                Date = dto.Date.ToUniversalTime(),
                 ExecutionTime = dto.ExecutionTime,
                 Value = dto.Value,
                 FileName = fileName,
@@ -70,20 +71,48 @@ public class CsvProcessorService : ICsvProcessorService
         var records = new List<CsvRecordDto>();
 
         using var reader = new StreamReader(csvStream);
-        using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
         
-        csv.Read();
+        var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+        {
+            Delimiter = ";",
+            HasHeaderRecord = true,
+            MissingFieldFound = null,
+            HeaderValidated = null
+        };
+
+        using var csv = new CsvReader(reader, config);
+        
+        await csv.ReadAsync();
         csv.ReadHeader();
+        
+        var headers = csv.HeaderRecord;
+        Console.WriteLine($"Headers found: {string.Join(", ", headers ?? Array.Empty<string>())}");
 
         while (await csv.ReadAsync())
         {
-            var record = new CsvRecordDto
+            try
             {
-                Date = csv.GetField<DateTime>("Date"),
-                ExecutionTime = csv.GetField<double>("ExecutionTime"),
-                Value = csv.GetField<double>("Value")
-            };
-            records.Add(record);
+                var dateString = csv.GetField<string>("Date");
+                if (string.IsNullOrEmpty(dateString))
+                {
+                    throw new CsvValidationException("Date field is empty");
+                }
+                
+                var date = DateTime.Parse(dateString, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal).ToUniversalTime();
+                
+                var record = new CsvRecordDto
+                {
+                    Date = date,
+                    ExecutionTime = csv.GetField<double>("ExecutionTime"),
+                    Value = csv.GetField<double>("Value")
+                };
+                records.Add(record);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error parsing row: {ex.Message}");
+                throw new CsvValidationException($"Ошибка парсинга строки: {ex.Message}");
+            }
         }
 
         return records;
@@ -93,8 +122,8 @@ public class CsvProcessorService : ICsvProcessorService
     {
         var sortedRecords = records.OrderBy(r => r.Date).ToList();
         
-        var minDate = sortedRecords.First().Date;
-        var maxDate = sortedRecords.Last().Date;
+        var minDate = sortedRecords.First().Date.ToUniversalTime();
+        var maxDate = sortedRecords.Last().Date.ToUniversalTime();
         var deltaTime = (maxDate - minDate).TotalSeconds;
 
         var executionTimes = records.Select(r => r.ExecutionTime).ToList();
@@ -116,7 +145,9 @@ public class CsvProcessorService : ICsvProcessorService
             AverageValue = averageValue,
             MedianValue = medianValue,
             MaxValue = maxValue,
-            MinValue = minValue
+            MinValue = minValue,
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow
         };
     }
 

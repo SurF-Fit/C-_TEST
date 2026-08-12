@@ -4,7 +4,7 @@ namespace TimescaleDataProcessor.Core.Validators;
 
 public static class CsvValidator
 {
-    private static readonly DateTime MinDate = new DateTime(2000, 1, 1);
+    private static readonly DateTime MinDate = new DateTime(2000, 1, 1).ToUniversalTime();
     private const int MaxRecords = 10000;
     private const int MinRecords = 1;
 
@@ -14,7 +14,7 @@ public static class CsvValidator
 
         if (records.Count < MinRecords || records.Count > MaxRecords)
         {
-            errors.Add($"Файл должен быть в диапазоне {MinRecords} и {MaxRecords}. Найдено: {records.Count}");
+            errors.Add($"File must contain between {MinRecords} and {MaxRecords} records. Found: {records.Count}");
             return errors;
         }
 
@@ -26,21 +26,16 @@ public static class CsvValidator
             var rowNumber = i + 1;
 
             if (record.Date > now)
-            {
-                errors.Add($"Строка {rowNumber}: Дата не может быть назначена в будущем");
-            }
+                errors.Add($"Row {rowNumber}: Date cannot be in the future");
+
             if (record.Date < MinDate)
-            {
-                errors.Add($"Строка {rowNumber}: Дата не может быть ранне, чем {MinDate:yyyy-MM-dd}");
-            }
+                errors.Add($"Row {rowNumber}: Date cannot be earlier than {MinDate:yyyy-MM-dd}");
+
             if (record.ExecutionTime < 0)
-            {
-                errors.Add($"Строка {rowNumber}: Время выполнения не может быть отрицательным");
-            }
+                errors.Add($"Row {rowNumber}: Execution time cannot be negative");
+
             if (record.Value < 0)
-            {
-                errors.Add($"Строка {rowNumber}: Значение не может быть отрицательным");
-            }
+                errors.Add($"Row {rowNumber}: Value cannot be negative");
         }
 
         return errors;

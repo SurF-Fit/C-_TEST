@@ -1,0 +1,104 @@
+<div class="results-container">
+    <h2>📊 Результаты</h2>
+
+    <div class="filters">
+        <div class="filter-row">
+            <div class="filter-group">
+                <label>Имя файла</label>
+                <input
+                    type="text"
+                    [(ngModel)]="filters.fileName"
+                    placeholder="Поиск по имени..."
+                />
+            </div>
+            
+            <div class="filter-group">
+                <label>Дата от</label>
+                <input type="datetime-local" [(ngModel)]="filters.minDate" />
+            </div>
+            
+            <div class="filter-group">
+                <label>Дата до</label>
+                <input type="datetime-local" [(ngModel)]="filters.maxDate" />
+            </div>
+        </div>
+
+        <div class="filter-row">
+            <div class="filter-group">
+                <label>Ср. значение от</label>
+                <input type="number" [(ngModel)]="filters.minAvgValue" step="0.1" />
+            </div>
+            
+            <div class="filter-group">
+                <label>Ср. значение до</label>
+                <input type="number" [(ngModel)]="filters.maxAvgValue" step="0.1" />
+            </div>
+            
+            <div class="filter-group">
+                <label>Ср. время от</label>
+                <input type="number" [(ngModel)]="filters.minAvgExecTime" step="0.1" />
+            </div>
+            
+            <div class="filter-group">
+                <label>Ср. время до</label>
+                <input type="number" [(ngModel)]="filters.maxAvgExecTime" step="0.1" />
+            </div>
+        </div>
+
+        <div class="filter-actions">
+            <button class="btn-primary" (click)="applyFilters()">🔍 Применить</button>
+            <button class="btn-secondary" (click)="resetFilters()">🔄 Сбросить</button>
+        </div>
+    </div>
+
+    <div *ngIf="loading" class="loading">
+        ⏳ Загрузка результатов...
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+        ❌ {{ errorMessage }}
+    </div>
+
+    <div *ngIf="!loading && results.length === 0" class="no-data">
+        📭 Нет данных для отображения
+    </div>
+
+    <div *ngIf="!loading && results.length > 0" class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Имя файла</th>
+                    <th>Δ (сек)</th>
+                    <th>Min Date</th>
+                    <th>Ср. Время</th>
+                    <th>Ср. Значение</th>
+                    <th>Медиана</th>
+                    <th>Макс</th>
+                    <th>Мин</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let result of results">
+                    <td><strong>{{ result.fileName }}</strong></td>
+                    <td>{{ formatNumber(result.deltaTimeSeconds) }}</td>
+                    <td>{{ formatDate(result.minDate) }}</td>
+                    <td>{{ formatNumber(result.averageExecutionTime) }}</td>
+                    <td>{{ formatNumber(result.averageValue) }}</td>
+                    <td>{{ formatNumber(result.medianValue) }}</td>
+                    <td>{{ formatNumber(result.maxValue) }}</td>
+                    <td>{{ formatNumber(result.minValue) }}</td>
+                    <td>
+                        <button
+                            class="btn-action"
+                            (click)="getLastValues(result.fileName)"
+                            title="Посмотреть последние 10 значений"
+                        >
+                            📋
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="values-container">
+    <h2>📋 Последние 10 значений</h2>
+
+    <div class="search-box">
+        <input
+            type="text"
+            [(ngModel)]="fileName"
+            placeholder="Введите имя файла..."
+            (keyup.enter)="loadValues()"
+        />
+        <button class="btn-primary" (click)="loadValues()">🔍 Найти</button>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+        ❌ {{ errorMessage }}
+    </div>
+
+    <div *ngIf="loading" class="loading">
+        ⏳ Загрузка значений...
+    </div>
+
+    <div *ngIf="!loading && values.length === 0 && !errorMessage" class="no-data">
+        📭 Введите имя файла для поиска
+    </div>
+
+    <div *ngIf="!loading && values.length > 0" class="table-container">
+        <h3>Файл: {{ fileName }}</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Время выполнения</th>
+                    <th>Значение</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let value of values">
+                    <td>{{ formatDate(value.date) }}</td>
+                    <td>{{ formatNumber(value.executionTime) }}</td>
+                    <td>{{ formatNumber(value.value) }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

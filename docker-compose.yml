@@ -17,25 +17,23 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    restart: unless-stopped
 
   api:
-    build:
-      context: ./back
-      dockerfile: Dockerfile
+    image: c_test-api:latest
     container_name: timescale-api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=localhost;Database=timescaledb;Username=postgres;Password=postgres
+      - ConnectionStrings__DefaultConnection=Host=postgres;Database=timescaledb;Username=postgres;Password=postgres
+      - ASPNETCORE_URLS=http://+:8080
     ports:
-      - "5000:80"
+      - "5000:8080"
     depends_on:
       postgres:
         condition: service_healthy
     networks:
       - app-network
     restart: on-failure
-    volumes:
-      - ./back:/app
 
 networks:
   app-network:

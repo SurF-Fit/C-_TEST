@@ -1,0 +1,61 @@
+<div class="upload-container">
+    <h2>📤 Загрузка CSV файла</h2>
+    
+    <div 
+        class="upload-area" 
+        [class.dragover]="dragOver"
+        (dragover)="onDragOver($event)"
+        (dragenter)="onDragEnter($event)"
+        (dragleave)="onDragLeave($event)"
+        (drop)="onDrop($event)"
+    >
+        <div class="upload-content">
+            <span class="file-icon">📁</span>
+            <p *ngIf="!fileName" class="upload-text">
+                Перетащите CSV файл сюда или нажмите для выбора
+            </p>
+            <p *ngIf="fileName" class="file-name">
+                Выбран файл: {{ fileName }}
+            </p>
+            <input
+                type="file"
+                #fileInput
+                id="fileInput"
+                accept=".csv"
+                (change)="onFileSelected($event)"
+                [disabled]="uploading"
+            />
+            <label for="fileInput" class="file-label">
+                Выбрать файл
+            </label>
+        </div>
+    </div>
+
+    <div class="button-container">
+        <button
+            class="upload-btn"
+            (click)="onUpload()"
+            [disabled]="!selectedFile || uploading"
+        >
+            <span *ngIf="!uploading">📤 Загрузить</span>
+            <span *ngIf="uploading">⏳ Загрузка...</span>
+        </button>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+        ❌ {{ errorMessage }}
+    </div>
+
+    <div *ngIf="uploadResult" class="success-message">
+        <h3>✅ Файл успешно загружен!</h3>
+        <div class="result-preview">
+            <p><strong>Имя файла:</strong> {{ uploadResult.fileName }}</p>
+            <p><strong>Дельта времени:</strong> {{ formatNumber(uploadResult.deltaTimeSeconds) }} сек.</p>
+            <p><strong>Среднее время выполнения:</strong> {{ formatNumber(uploadResult.averageExecutionTime) }}</p>
+            <p><strong>Среднее значение:</strong> {{ formatNumber(uploadResult.averageValue) }}</p>
+            <p><strong>Медиана:</strong> {{ formatNumber(uploadResult.medianValue) }}</p>
+            <p><strong>Максимальное значение:</strong> {{ formatNumber(uploadResult.maxValue) }}</p>
+            <p><strong>Минимальное значение:</strong> {{ formatNumber(uploadResult.minValue) }}</p>
+        </div>
+    </div>
+</div>
